@@ -1,6 +1,7 @@
 #coding=utf-8
 class SegmentTree():
     def __init__(self,arr):
+        self.arr=arr
         self.tree=[0]*4*len(arr)
         self.buildSegmentTree(arr,0,0,len(arr)-1)
     #返回完全二叉树的数组中，一个索引所表示的元素的左孩子节点的索引
@@ -17,7 +18,7 @@ class SegmentTree():
             return
         leftChild=self.leftChild(index)
         rightChild=self.rightChild(index)
-        mid=l+(r-l)//2 #出现整型溢出问题
+        mid=l+(r-l)//2 #避免出现整型溢出问题
         self.buildSegmentTree(arr,leftChild,l,mid)
         self.buildSegmentTree(arr,rightChild,mid+1,r)
         #这里不一定是数字求和，也可能是其他的元素求和
@@ -27,7 +28,7 @@ class SegmentTree():
         '''
         queryL<0,queryR<0,queryL>queryR,queryL>=len(arr),queryR>=lar(arr)
         '''
-        return self.query(0,self.tree,queryL,queryR,0,len(arr)-1)
+        return self.query(0,self.tree,queryL,queryR,0,len(self.arr)-1)
     def query(self,index,arr,queryL,queryR,l,r):
         if queryL==l and queryR==r:
             return arr[index]
@@ -42,7 +43,7 @@ class SegmentTree():
         rightRueslt=self.query(rightChild,arr,mid+1,queryR,mid+1,r)
         return leftRueslt+rightRueslt
     def updatePort(self,index,val): #index 为需要修改的下标 = updateIndex
-        self.update(self.tree,0,len(arr)-1,0,index,val)
+        self.update(self.tree,0,len(self.arr)-1,0,index,val)
 
     def update(self,arr,l,r,index,updateIndex,val):
         if l==r==updateIndex:
