@@ -407,5 +407,6 @@ if __name__ == '__main__':
     print('-------')
     # BSTree.removeNotePort(30)
     # BSTree.preOrderPort()
-
-    BSTree.breadthOrderPort()
+    BSTree.removeMin(BSTree.root.right.right)
+    BSTree.orderPort()
+    # BSTree.breadthOrderPort()
